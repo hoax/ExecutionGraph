@@ -3,7 +3,10 @@ ExecutionGraph
 
 Lib for creating, checking and execution of a graph of dependent actions.
 
-A graph of actions/tasks can be created using class TaskGraphBuilder like this:
+Create a graph
+--------------
+
+A graph of actions/tasks can be created using class _TaskGraphBuilder_ like this:
 
 ```groovy
 import de.kodekultur.utils.groovy.*
@@ -43,6 +46,8 @@ b."last process" {
 	}
 }
 ```
+* _dependsOn_ takes a list of tasknames this task depends on
+* _action_ is simply a closure defining the code to be executed by this task
 
 The created graph can then be checked for deadlocks using the method _checkForDeadlocks_, which will return collection of tasks causing errors..
 ```groovy
@@ -57,3 +62,15 @@ println "These tasks are missing: ${undefTaskNames}"
 ```
 
 To get a list of all the defined Tasks simply call method _getAllTasks()_.
+
+Execute a graph
+---------------
+
+To execute the definied tasks use class _TaskGraphRunner_. Its contructor takes the list of tasks and optionally an ExecutorService.
+If no ExecutorService is provided, a fixed threadpool with 8 threads will be used to execute the tasks.
+
+To start the task execution just call _run_ on your _TaskGraphRunner_:
+```groovy
+x = new TaskGraphRunner( b.getAllTasks() )
+x.run()
+```
