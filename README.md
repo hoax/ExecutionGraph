@@ -3,12 +3,12 @@ ExecutionGraph
 
 Lib for creating, checking and execution of a graph of dependent actions.
 
-A graph of actions/tasks can be created using class TaskExectionBuilder like this:
+A graph of actions/tasks can be created using class TaskGraphBuilder like this:
 
 ```groovy
 import de.kodekultur.utils.groovy.*
 
-b = new TaskGraphBuilder()
+def b = new TaskGraphBuilder()
 
 b."first process" {
 	action {
@@ -43,3 +43,17 @@ b."last process" {
 	}
 }
 ```
+
+The created graph can then be checked for deadlocks using the method _checkForDeadlocks_, which will return collection of tasks causing errors..
+```groovy
+def errors = b.checkForDeadlocks()
+println "Errors: ${errors}"
+```
+
+There is also a method _checkForUndefinedDependencies_ to check if any dependsOn-clause references to a task that is not defined somewhere else.
+```groovy
+def undefTaskNames = b.checkForUndefinedDependencies()
+println "These tasks are missing: ${undefTaskNames}"
+```
+
+To get a list of all the defined Tasks simply call method _getAllTasks()_.
