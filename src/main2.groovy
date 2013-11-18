@@ -1,6 +1,6 @@
 import de.kodekultur.utils.groovy.*
 
-b = new ExecutionGraphBuilder()
+b = new TaskGraphBuilder()
 b."first process" {
 	action {
 		println "start"
@@ -36,5 +36,5 @@ b.tasks.values().each {
 	println it.dump()
 }
 
-runner = new ExecutionGraphRunner(b.getAllTasks());
+runner = new TaskGraphRunner(b.getAllTasks());
 runner.run();

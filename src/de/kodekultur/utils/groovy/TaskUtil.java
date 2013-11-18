@@ -14,20 +14,20 @@ import org.codehaus.groovy.control.CompilerConfiguration;
  * 
  * @author Tobias Mayer (tma@kodekultur.de)
  */
-public class ProcessUtil {
+public class TaskUtil {
 
 	/**
 	 * Reads the process configuration from the given file. The returned
-	 * {@link ExecutionGraphBuilder} can then be used to determine if an error
+	 * {@link TaskGraphBuilder} can then be used to determine if an error
 	 * occured and to access the created processes.
 	 * 
 	 * @param file
 	 *            File with process configuration
-	 * @return With file initialized {@link ExecutionGraphBuilder}
+	 * @return With file initialized {@link TaskGraphBuilder}
 	 * @throws CompilationFailedException
 	 * @throws IOException
 	 */
-	public static ExecutionGraphBuilder processConfigFile(File file)
+	public static TaskGraphBuilder processConfigFile(File file)
 			throws CompilationFailedException, IOException {
 		// use DelegatingScript as Script-superclass for nicer syntax inside file
 		CompilerConfiguration config = new CompilerConfiguration();
@@ -47,14 +47,14 @@ public class ProcessUtil {
 		// process file with GroovyShell
 		GroovyShell sh = new GroovyShell(binding, config);
 		DelegatingScript parsed = (DelegatingScript) sh.parse(file);
-		ExecutionGraphBuilder egb = new ExecutionGraphBuilder();
+		TaskGraphBuilder egb = new TaskGraphBuilder();
 		// set builder as delegate, so we can directly use the builder within
 		// the config file
 		parsed.setDelegate(egb);
 		// run the config file
 		parsed.run();
 		
-		// return the filled ExecutionGraphBuilder
+		// return the filled TaskGraphBuilder
 		return egb;
 	}
 

@@ -3,8 +3,8 @@ import groovy.lang.Binding;
 import org.codehaus.groovy.control.*
 
 import de.kodekultur.utils.groovy.DelegatingScript
-import de.kodekultur.utils.groovy.ExecutionGraphBuilder
-import de.kodekultur.utils.groovy.ExecutionGraphRunner
+import de.kodekultur.utils.groovy.TaskGraphBuilder
+import de.kodekultur.utils.groovy.TaskGraphRunner
 import de.kodekultur.utils.groovy.Task
 
 
@@ -14,7 +14,7 @@ config.setScriptBaseClass(DelegatingScript.class.name)
 
 sh = new GroovyShell(config);
 parsed = sh.parse(file)
-egb = new ExecutionGraphBuilder()
+egb = new TaskGraphBuilder()
 parsed.setDelegate(egb)
 parsed.run()
 
@@ -27,5 +27,5 @@ processes.values().each {
 	println it.dump()
 }
 
-runner = new ExecutionGraphRunner(egb.getAllTasks());
+runner = new TaskGraphRunner(egb.getAllTasks());
 runner.run();

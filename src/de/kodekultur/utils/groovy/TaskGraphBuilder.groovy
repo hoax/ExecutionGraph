@@ -40,7 +40,7 @@ package de.kodekultur.utils.groovy
  * @author Tobias Mayer (tma@kodekultur.de)
  *
  */
-class ExecutionGraphBuilder {
+class TaskGraphBuilder {
 
 	/**
 	 * Map of name to task

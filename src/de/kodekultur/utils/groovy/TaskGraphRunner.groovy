@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadFactory;
  * 
  * @author Tobias Mayer (tma@kodekultur.de)
  */
-public class ExecutionGraphRunner {
+public class TaskGraphRunner {
 
 	def finishedTasks = (Set) []
 	def tasks
@@ -23,7 +23,7 @@ public class ExecutionGraphRunner {
 	 * fixed thread pool with 8 threads. 
 	 * @param tasks Tasks to execute
 	 */
-	public ExecutionGraphRunner(Collection<Task> tasks) {
+	public TaskGraphRunner(Collection<Task> tasks) {
 		this(tasks, Executors.newFixedThreadPool(8));
 	}
 	
@@ -33,7 +33,7 @@ public class ExecutionGraphRunner {
 	 * @param tasks Tasks to execute
 	 * @param executor Executor to be used for task execution
 	 */
-	public ExecutionGraphRunner(Collection<Task> tasks, ExecutorService executor) {
+	public TaskGraphRunner(Collection<Task> tasks, ExecutorService executor) {
 		this.executor = executor
 		this.tasks = [] + tasks;
 	}
