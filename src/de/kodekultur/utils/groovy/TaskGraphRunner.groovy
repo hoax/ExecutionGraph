@@ -17,6 +17,7 @@ public class TaskGraphRunner {
 	def finishedTasks = (Set) []
 	def tasks
 	ExecutorService executor
+	def shutDownExecutor = true
 	
 	/**
 	 * Creates a new ExectionGraphRunner using a
@@ -24,7 +25,8 @@ public class TaskGraphRunner {
 	 * @param tasks Tasks to execute
 	 */
 	public TaskGraphRunner(Collection<Task> tasks) {
-		this(tasks, Executors.newFixedThreadPool(8));
+		this(tasks, Executors.newFixedThreadPool(8))
+		shutDownExecutor = false
 	}
 	
 	/**
@@ -86,7 +88,7 @@ public class TaskGraphRunner {
 	protected void taskFinished(Task task, boolean failed) {
 		finishedTasks[task.name] = failed
 		def tasksToStart = []
-		if (tasks.isEmpty()) {
+		if (tasks.isEmpty() && shutDownExecutor) {
 			executor.shutdown();
 		} else {
 			tasks.each { p ->
@@ -103,4 +105,5 @@ public class TaskGraphRunner {
 			}
 		}
 	}
+
 }
