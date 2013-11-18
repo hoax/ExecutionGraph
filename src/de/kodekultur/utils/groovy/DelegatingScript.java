@@ -101,7 +101,7 @@ public abstract class DelegatingScript extends Script {
         try {
             return metaClass.getProperty(delegate,property);
         } catch (MissingPropertyException e) {
-            return super.getProperty(property);
+        	return property;
         }
     }
 

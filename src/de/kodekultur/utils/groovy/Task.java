@@ -1,4 +1,5 @@
 package de.kodekultur.utils.groovy;
+
 import groovy.lang.Closure;
 
 import java.util.Arrays;
@@ -6,11 +7,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Describes a process.
+ * Describes a task.
  *
  * @author Tobias Mayer (tma@kodekultur.de)
  */
-public class Process {
+public class Task {
 
 	// its name
 	private String name;
@@ -22,10 +23,10 @@ public class Process {
 	private Set<String> dependsOn = new TreeSet<String>();
 
 	/**
-	 * Creates a new Process object
+	 * Creates a new Task object
 	 * @param name
 	 */
-	Process(String name) {
+	public Task(String name) {
 		this.name = name;
 	}
 

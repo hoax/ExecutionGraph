@@ -1,5 +1,5 @@
 
-"start" {
+start {
 	action { p ->
 		println "start"
 		(1..10).each {
@@ -10,7 +10,7 @@
 }
 
 "proc1" {
-	dependsOn "start"
+	dependsOn start
 	action { p ->
 		(1..10).each {
 			println "${p.name} ${it}"
@@ -30,7 +30,7 @@
 }
 
 "proc3" {
-	dependsOn "proc1", "proc2"
+	dependsOn "proc1", proc2
 	action { p ->
 		(1..10).each {
 			println "${p.name} ${it}"

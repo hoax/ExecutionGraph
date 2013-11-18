@@ -1,5 +1,6 @@
 package de.kodekultur.utils.groovy;
 
+import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
 import java.io.File;
@@ -32,8 +33,19 @@ public class ProcessUtil {
 		CompilerConfiguration config = new CompilerConfiguration();
 		config.setScriptBaseClass(DelegatingScript.class.getName());
 		
+		Binding binding = new Binding() {
+			@Override
+			public Object getVariable(String name) {
+				Object o = super.getVariable(name);
+				if (o == null) {
+					o = name;
+				}
+				return o;
+			}
+		};
+		
 		// process file with GroovyShell
-		GroovyShell sh = new GroovyShell(config);
+		GroovyShell sh = new GroovyShell(binding, config);
 		DelegatingScript parsed = (DelegatingScript) sh.parse(file);
 		ExecutionGraphBuilder egb = new ExecutionGraphBuilder();
 		// set builder as delegate, so we can directly use the builder within
